@@ -8,16 +8,17 @@ const soController = {
 	// po stands for PO number
 	updatePo: async (req, res) => {
 		try {
-			const params = req.params
-			if (Validator.isEmpty(params.num) || Validator.isEmpty(params.po))
+			const { num, po } = req.body
+			if (Validator.isEmpty(num) || Validator.isEmpty(po))
 				return res.json({ success: false, error: msg.error.missing_fields })
 
-			connection.query(`UPDATE so SET customerPO = ${params.po} WHERE num = ${params.num}`)
-				.then(data => {
-					res.json({ success: true, msg: msg.success.updatedPo })
-				}).catch(error => {
+			connection.query(`UPDATE so SET customerPO = ${po} WHERE num = ${num}`, (error, results, fields) => {
+				if (error) {
 					res.json({ success: false, error: error })
-				})
+				} else {
+					res.json({ success: true, msg: msg.success.updatedPo })
+				}
+			})
 
 		} catch (error) {
 			res.json({ success: false, error: error })
