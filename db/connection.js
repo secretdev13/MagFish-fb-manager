@@ -1,7 +1,9 @@
 var mysql = require('mysql')
+const config = require('../config')
 
 var connection = mysql.createConnection({
-  host: process.env.DB_Host,
+  host: config.dbHost,
+  port: config.dbPort,
   user: process.env.DB_Username,
   password: process.env.DB_Password,
   database: process.env.DB_Name,
