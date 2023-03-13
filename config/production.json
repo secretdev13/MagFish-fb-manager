@@ -1,4 +1,6 @@
 {
 	"port": "28193",
-	"baseURL": "/api"
+	"baseURL": "/api",
+	"dbHost": "localhost",
+	"dbPort": 3305
 }
